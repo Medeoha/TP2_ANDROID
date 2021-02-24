@@ -23,19 +23,19 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity { //Class principale
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button newImgButt = findViewById(R.id.getImage);
-        newImgButt.setOnClickListener(new GetImageOnClickListener(findViewById(R.id.imageView)));
+        newImgButt.setOnClickListener(new GetImageOnClickListener(findViewById(R.id.imageView)));//On definit le click de notre bouton avec notre class GetImageOnClickListener
 
     }
 }
 
- class AsyncFlickrJSONData extends AsyncTask<String, Void, JSONObject>
+ class AsyncFlickrJSONData extends AsyncTask<String, Void, JSONObject>// Class permettant de recuperer le JSON de maniere asynchrone
 {
     URL url;
     ImageView img;
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected JSONObject doInBackground(String... strings) {
+    protected JSONObject doInBackground(String... strings) {// On se connecte et on recupere le JSON
         HttpURLConnection urlConnection = null;
         JSONObject j = null;
         try {
@@ -78,16 +78,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPostExecute(JSONObject jsonObject) {
+    protected void onPostExecute(JSONObject jsonObject) {// On va chercher les urls que fournissent l'API
         String w = null;
         try {
-            w = ((JSONObject) jsonObject.getJSONArray("items").get(0)).getJSONObject("media").getString("m");
+            w = ((JSONObject) jsonObject.getJSONArray("items").get(0)).getJSONObject("media").getString("m");//On recupere les urls des images via le JSON qu'on a obtenu precedement
         } catch (JSONException e) {
             e.printStackTrace();
         }
         System.out.println(w);
         try {
-            new AsyncBitmapDownloader(w,img).execute();
+            new AsyncBitmapDownloader(w,img).execute();// On lance une nouvelle tache qui va telecharger l'image
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-class AsyncBitmapDownloader extends AsyncTask<String, Void, Bitmap>
+class AsyncBitmapDownloader extends AsyncTask<String, Void, Bitmap>//Meme principe que la classe du dessus mais ici on recupere une Bitmap(l'image) via l'url
 {
     URL url;
     ImageView img ;
@@ -106,7 +106,7 @@ class AsyncBitmapDownloader extends AsyncTask<String, Void, Bitmap>
     }
 
     @Override
-    protected Bitmap doInBackground(String... strings) {
+    protected Bitmap doInBackground(String... strings) {//Ici qu'on recupere l'image !
         HttpURLConnection urlConnection = null;
         Bitmap bm = null;
         try {
@@ -124,9 +124,8 @@ class AsyncBitmapDownloader extends AsyncTask<String, Void, Bitmap>
     }
 
     @Override
-    protected void onPostExecute(Bitmap bitmap)
+    protected void onPostExecute(Bitmap bitmap)//On modifie l'image
     {
-
         img.setImageBitmap(bitmap);
     }
 }

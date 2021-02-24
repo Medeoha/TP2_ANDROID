@@ -15,7 +15,7 @@ public class GetImageOnClickListener  implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v) { // On redefit l'action au click d'un bouton
         URL url = null;
 
         try {
