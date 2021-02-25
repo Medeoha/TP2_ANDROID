@@ -26,7 +26,7 @@ public class AsyncFlickrJSONDataForList extends AsyncTask<String, Void, JSONObje
 
         img = im;
         adap = myadap;
-        url = new URL("https://www.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1");
+        url = new URL("https://www.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1");//Ce n'est pas l'url du cours mais celle ci donne directement le JSON sans la fioriture au debut
         im.setAdapter(adap);
     }
 
@@ -69,14 +69,14 @@ public class AsyncFlickrJSONDataForList extends AsyncTask<String, Void, JSONObje
 
             for(int i = 0; i<((JSONArray) jsonObject.getJSONArray("items")).length(); i++)
             {
-                adap.dd(((JSONObject) jsonObject.getJSONArray("items").get(i)).getJSONObject("media").getString("m"));
+                adap.dd(((JSONObject) jsonObject.getJSONArray("items").get(i)).getJSONObject("media").getString("m"));//On ajoute au vecteur dans l'adapter les urls du JSON
             }
            // w = ((JSONObject) jsonObject.getJSONArray("items").get(0)).getJSONObject("media").getString("m");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        adap.notifyDataSetChanged();
+        adap.notifyDataSetChanged();// On "dit" a l'adapter qu'il ya  une modification
 
 
     }

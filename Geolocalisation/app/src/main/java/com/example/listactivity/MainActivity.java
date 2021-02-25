@@ -25,11 +25,6 @@ import java.net.URL;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String[] LOCATION_PERMS={
-            Manifest.permission.ACCESS_FINE_LOCATION
-    };
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 ListView listView = findViewById(R.id.list);
                 MyAdapter adap = new MyAdapter();
                 ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},// Il faut la permission de l'utilisateur pour pouvoir utiliser le gps
                         1);
 
-                LocationManager locationManager =null;
+                LocationManager locationManager =null; // permet d'avoir des données lié à la localisation de l'appareil
                 String fournisseur = null;
                 String latitude=null,longitude= null;
                 if(locationManager == null) {
@@ -76,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(fournisseur != null)
                 {
-                    Location localisation = locationManager.getLastKnownLocation(fournisseur);
+                    Location localisation = locationManager.getLastKnownLocation(fournisseur);// On recupere la localisation
                     LocationListener locationListener = new MyLocationListener();
-                    longitude = "" + localisation.getLongitude();
+                    longitude = "" + localisation.getLongitude();//On recupere les coordonnées géographiques
                     latitude = "" + localisation.getLatitude();
                     Log.v("Debug","long ="+longitude+"lat = "+latitude);
                     if(locationListener != null)
@@ -111,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 try {
-                    new AsyncFlickrJSONDataForList(findViewById(R.id.list),adap,url).execute();
+                    new AsyncFlickrJSONDataForList(findViewById(R.id.list),adap,url).execute();//Mmme principe que les exercices precedents
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
@@ -127,13 +122,13 @@ public class MainActivity extends AppCompatActivity {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                    //Si la permission n'est pas autorisé
+                    //Depuis android 6 il est obligatoire de demander a l'utilisateur son accord pour utiliser certains services pour plus de sécurité
+
                 }
                 return;
             }
-            // other 'case' lines to check for other
-            // permissions this app might request
+
         }
     }
 }

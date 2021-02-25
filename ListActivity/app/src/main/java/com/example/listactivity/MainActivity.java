@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setContentView(R.layout.activity_list);
                 ListView listView = findViewById(R.id.list);
-                MyAdapter adap = new MyAdapter();
+                MyAdapter adap = new MyAdapter();//On crée un adapter pour gerer comment les elements de la vue seront affichés
                 try {
-                    new AsyncFlickrJSONDataForList(findViewById(R.id.list),adap).execute();
+                    new AsyncFlickrJSONDataForList(findViewById(R.id.list),adap).execute();// On lance de facon asynchrone comme pour l'exercice precedent une class permettant de recuperer les urls
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }

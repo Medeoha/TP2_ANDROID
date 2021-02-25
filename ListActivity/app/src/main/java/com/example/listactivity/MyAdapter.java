@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.Vector;
 
 public class MyAdapter extends BaseAdapter {
-    Vector<String> vector;
+    Vector<String> vector;//pour stocker les urls
 
     public MyAdapter() {
         vector = new Vector<>();
@@ -44,7 +44,7 @@ public class MyAdapter extends BaseAdapter {
        if (convertView == null) {
 
 
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());// Permet d'ajouter des vues dans un Layout
             convertView = inflater.inflate(R.layout.bitmaplayout, parent, false);
 
            ImageView imgview = convertView.findViewById(R.id.imageView);
@@ -55,20 +55,20 @@ public class MyAdapter extends BaseAdapter {
                        @Override
                        public void onResponse(Bitmap response) {
 
-                           imgview.setImageBitmap(response);
-                           Log.i("CFG", vector.get(position));
+                           imgview.setImageBitmap(response);// on sait l'image ici
+                          // Log.i("CFG", vector.get(position));
                        }
                    }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
                @Override
                    public void onErrorResponse(VolleyError error) {
-                       Log.i("JFL", "TODO4");
+
                        error.printStackTrace();
                    }
            });
-           queue.add(request);
+           queue.add(request);// On add la request a la queue
 
         }
-        return convertView;
+        return convertView;// On retourne la "nouvelle" view
 
     }
     public void dd(String url)
